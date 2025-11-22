@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>.: WIELKA ENCYKLOPEDIA GÓWNA - WEBMASTER 2000 :.</title>
+    <style>
+        /* STYLIZACJA RETRO - LATA 90/2000 */
+        body {
+            background-color: #3e2723;
+            background-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><text x="10" y="30" font-size="20">💩</text></svg>');
+            color: #ffeb3b;
+            font-family: "Courier New", Courier, monospace;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="%236d4c41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'), auto;
+        }
+
+        /* Układ tabelkowy dla prawdziwego klimatu retro */
+        table.main-layout {
+            width: 800px;
+            margin: 0 auto;
+            background-color: #5d4037;
+            border: 5px outset #8d6e63;
+            border-spacing: 0;
+        }
+
+        td {
+            vertical-align: top;
+            padding: 10px;
+            border: 2px inset #3e2723;
+        }
+
+        /* Nagłówek z animacją */
+        .header {
+            text-align: center;
+            background: #FF0000; /* Agresywna czerwień */
+            color: yellow;
+            border-bottom: 5px solid black;
+            padding: 20px;
+        }
+
+        h1 {
+            text-shadow: 4px 4px 0px #000000;
+            font-size: 48px;
+            margin: 0;
+            animation: blink 1s infinite;
+        }
+
+        /* Symulacja znacznika BLINK */
+        @keyframes blink {
+            0% { opacity: 1; color: yellow; }
+            50% { opacity: 1; color: cyan; }
+            100% { opacity: 1; color: yellow; }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .spinning-poop {
+            animation: spin 4s linear infinite;
+            display: inline-block;
+        }
+
+        /* Lewe menu */
+        .menu {
+            width: 150px;
+            background-color: #4e342e;
+        }
+
+        .menu ul {
+            list-style-type: square;
+            padding-left: 20px;
+        }
+
+        .menu a {
+            color: #00FF00;
+            text-decoration: none;
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .menu a:hover {
+            background-color: white;
+            color: black;
+            text-decoration: blink;
+        }
+
+        /* Główna treść */
+        .content {
+            background-color: #d7ccc8; /* Brudny beż */
+            color: black;
+            min-height: 600px;
+        }
+
+        /* Stopka */
+        .footer {
+            background-color: black;
+            color: white;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        /* Przyciski w starym stylu */
+        button {
+            background: #e0e0e0;
+            border: 2px outset white;
+            font-family: "Courier New";
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:active {
+            border: 2px inset white;
+        }
+
+        /* Pasek przewijania (marquee) */
+        .marquee-container {
+            background: blue;
+            color: white;
+            border: 2px solid white;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Canvas dla tła */
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Galeria */
+        .gallery-img {
+            border: 3px solid gold;
+            margin: 5px;
+        }
+
+        hr.retro {
+            border: 0;
+            height: 1px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+            margin: 20px 0;
+        }
+
+        .counter {
+            font-family: 'Digital', monospace;
+            background: black;
+            color: red;
+            padding: 2px 5px;
+            border: 2px inset gray;
+            letter-spacing: 3px;
+        }
+
+        /* Style dla sekcji (zakładek) */
+        .section {
+            display: none; /* Domyślnie ukryte */
+        }
+        
+        .section.active {
+            display: block; /* Tylko aktywna jest widoczna */
+        }
+
+        .gold-frame {
+            border: 10px ridge gold;
+            padding: 10px;
+            background: #3e2723;
+            color: #ffd700;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<!-- TŁO MATRIX (DESZCZ GÓWNA) -->
+<canvas id="matrix-canvas"></canvas>
+
+<table class="main-layout">
+    <!-- NAGŁÓWEK -->
+    <tr>
+        <td colspan="2" class="header">
+            <div class="spinning-poop" style="font-size: 50px;">💩</div>
+            <h1>GÓWNO.NET.PL</h1>
+            <div class="spinning-poop" style="font-size: 50px;">💩</div>
+            <br>
+            <font size="2">NAJLEPSZA STRONA W SIECI OD 1998 ROKU!</font>
+        </td>
+    </tr>
+
+    <!-- PASEK OGŁOSZEŃ -->
+    <tr>
+        <td colspan="2" class="marquee-container">
+            <marquee scrollamount="10" scrolldelay="50">
+                +++ WITAJ W ŚWIECIE EKSKREMENTÓW +++ NOWOŚĆ: DZIAŁ O PIOTRZE WALERSKIM +++ SZUKAMY ADMINA +++
+            </marquee>
+        </td>
+    </tr>
+
+    <!-- TREŚĆ -->
+    <tr>
+        <!-- MENU -->
+        <td class="menu">
+            <center><font color="red"><b>MENU</b></font></center>
+            <hr>
+            <ul>
+                <li><a href="#" onclick="showSection('home')">Strona Główna</a></li>
+                <li><a href="#" onclick="showSection('walerski')" style="color: yellow;">★ MISTRZ WALERSKI ★</a></li>
+                <li><a href="#" onclick="alert('Sekcja w budowie!')">Rodzaje Kupy</a></li>
+                <li><a href="#" onclick="playFart()">Dźwięki (WAV)</a></li>
+                <li><a href="#" onclick="alert('Musisz zainstalować Flash Player 5!')">Gry Flash</a></li>
+                <li><a href="#">Linki</a></li>
+                <li><a href="mailto:admin@gowno.pl">Napisz do nas</a></li>
+            </ul>
+            <br>
+            <center>
+                <img src="data:image/gif;base64,R0lGODlhEAAQAOMMAAAAAP///8zMzJmZmWZmZjMzMwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAAgALAAAAAAQABAAAARREMlJqw046827/2AojmRpnmiqrmzrvnAsz3Rt33iu73zv/8CgcEgsGo/IpHLJbDqf0Kh0Sq1ar9isdsvter/gsHhMLpvP6LR6zW673/C4fE6v2+8IADs=" alt="New Icon"> <blink>HOT!</blink>
+                <br><br>
+                <b>Licznik:</b><br>
+                <span class="counter" id="counter">034821</span>
+            </center>
+        </td>
+
+        <!-- GLOWNA TRESC (Dynamiczna) -->
+        <td class="content">
+            
+            <!-- SEKKCJA HOME -->
+            <div id="home" class="section active">
+                <center>
+                    <h2>Witaj wędrowcze!</h2>
+                    <p>Jesteś <b style="color: brown;">821</b> osobą, która wdepnęła na tę stronę.</p>
+                </center>
+
+                <hr class="retro">
+
+                <h3>ARTYKUŁ TYGODNIA: Analiza Konsystencji</h3>
+                <img align="left" style="margin-right: 10px;" width="100" height="100" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23795548' stroke='black' stroke-width='2'/><circle cx='35' cy='40' r='5' fill='white'/><circle cx='65' cy='40' r='5' fill='white'/><path d='M 30 60 Q 50 80 70 60' stroke='black' stroke-width='3' fill='none'/></svg>" alt="Kupa SVG">
+                <p>
+                    Gówno (łac. faeces) – to materiał, który fascynuje ludzkość od zarania dziejów. Na naszej stronie znajdziesz 
+                    wszystko, co bałeś się zapytać. Pamiętaj, żeby wytrzeć buty przed wejściem!
+                </p>
+                <br clear="all">
+
+                <hr class="retro">
+
+                <center>
+                    <h3>GALERIA MULTIMEDIALNA (High Quality GIFS)</h3>
+                    <svg class="gallery-img" width="100" height="100">
+                        <path d="M20,80 C20,20 80,20 80,80 L20,80" fill="#5D4037" stroke="black" />
+                        <circle cx="35" cy="50" r="5" fill="white" />
+                        <circle cx="65" cy="50" r="5" fill="white" />
+                        <path d="M40,70 Q50,75 60,70" stroke="black" fill="none" />
+                    </svg>
+                    
+                    <svg class="gallery-img" width="100" height="100">
+                        <rect x="30" y="30" width="40" height="40" fill="#4E342E" stroke="black" />
+                        <text x="35" y="55" font-size="10" fill="white">CENZURA</text>
+                    </svg>
+
+                    <svg class="gallery-img" width="100" height="100">
+                        <circle cx="50" cy="50" r="30" fill="#3E2723" />
+                        <path d="M40,40 L60,60 M60,40 L40,60" stroke="red" stroke-width="5" />
+                    </svg>
+                </center>
+
+                <hr class="retro">
+
+                <h3>ZAAWANSOWANE NARZĘDZIA JS</h3>
+                
+                <fieldset style="border: 2px solid #5d4037; padding: 10px;">
+                    <legend><b>Symulator Bąka 2000</b></legend>
+                    <center>
+                        <button onclick="fartText()">GENERUJ DŹWIĘK</button>
+                        <br><br>
+                        <div id="fart-output" style="font-family: Impact; font-size: 20px; color: green; height: 30px;"></div>
+                    </center>
+                </fieldset>
+            </div>
+
+            <!-- NOWA SEKCJA: PIOTR WALERSKI -->
+            <div id="walerski" class="section">
+                <div class="gold-frame">
+                    <h2>⚜️ GALERIA MISTRZA ⚜️<br>PIOTR WALERSKI</h2>
+                </div>
+                <br>
+                <p align="justify">
+                    <b>PIOTR WALERSKI</b> (ur. 1974 w Kielcach) – Największy współczesny mistrz kopii, człowiek który pędzla się nie boi.
+                    Podczas gdy inni artyści tworzą "gówno" (metaforycznie), Pan Piotr tworzy sztukę wysoką w kolorach ziemi.
+                </p>
+
+                <table width="100%" border="1" bordercolor="gold" bgcolor="#4e342e" style="color: white;">
+                    <tr>
+                        <td align="center" width="50%">
+                            <!-- Symulacja "Damy z Gronostajem" ale w wersji pixel-retro -->
+                            <svg width="150" height="200" viewBox="0 0 150 200" style="background:black">
+                                <rect x="10" y="10" width="130" height="180" fill="#3e2723" />
+                                <circle cx="75" cy="60" r="30" fill="#ffccbc" /> <!-- Głowa -->
+                                <path d="M45,180 Q75,90 105,180" fill="#8d6e63" /> <!-- Suknia -->
+                                <text x="50" y="65" font-size="10" fill="black">ಠ_ಠ</text>
+                            </svg>
+                            <br><i>"Dama z Łasiczką"</i><br>Kopia Mistrza
+                        </td>
+                        <td valign="middle">
+                            <ul style="list-style-type: circle;">
+                                <li>Specjalizacja: <b>Jan Matejko</b></li>
+                                <li>Technika: Olej (i werniks)</li>
+                                <li>Poziom: <b>Ekspert</b></li>
+                                <li>Status: <b>Legenda</b></li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+
+                <br>
+                <center>
+                    <h3>⚠️ UWAGA ⚠️</h3>
+                    <p>Twórczość Pana Piotra to jedyna rzecz na tej stronie, która NIE JEST gównem.</p>
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='50'><rect width='300' height='50' fill='red'/><text x='10' y='35' font-family='Arial' font-weight='bold' font-size='20' fill='white'>RESPECT ZONE !!!</text></svg>">
+                </center>
+
+                <hr class="retro">
+                
+                <h4>Księga Pamiątkowa Fanów Walerskiego:</h4>
+                <div style="background: white; color: black; padding: 5px; border: 2px inset black; height: 100px; overflow-y: scroll; font-family: Arial; font-size: 12px;">
+                    <b>Anonim:</b> Mistrz nad mistrze!<br>
+                    <b>Koneser2000:</b> Te brązy są niesamowite.<br>
+                    <b>Janek:</b> Czy namaluje Pan Bitwę pod Grunwaldem na paznokciu?<br>
+                    <b>Admin:</b> Szacunek.<br>
+                </div>
+                <br>
+                <center><button onclick="showSection('home')">POWRÓT DO SZAMBA (HOME)</button></center>
+            </div>
+
+        </td>
+    </tr>
+
+    <!-- STOPKA -->
+    <tr>
+        <td colspan="2" class="footer">
+            &copy; 1999-2001 GÓWNO CORP. & PIOTR WALERSKI FAN CLUB.<br>
+            <marquee width="30%">Wspieramy polskich artystów!</marquee>
+        </td>
+    </tr>
+</table>
+
+<!-- SKRYPTY JS -->
+<script>
+    // MECHANIZM ZAKŁADEK (DHTML)
+    function showSection(id) {
+        // Ukryj wszystkie
+        document.getElementById('home').className = 'section';
+        document.getElementById('walerski').className = 'section';
+        
+        // Pokaż wybraną
+        document.getElementById(id).className = 'section active';
+        
+        // Dźwięk kliknięcia (fake)
+        if(id === 'walerski') {
+            alert("Wchodzisz do strefy SZTUKI WYSOKIEJ. Proszę zachować powagę.");
+        }
+    }
+
+    // SKRYPT ŚLEDZENIA MYSZKI (KLASYK Z LAT 90)
+    const tailLength = 5;
+    const tail = [];
+    
+    for(let i=0; i<tailLength; i++) {
+        let div = document.createElement('div');
+        div.innerHTML = '💩';
+        div.style.position = 'absolute';
+        div.style.fontSize = (20 - i*2) + 'px';
+        div.style.pointerEvents = 'none';
+        div.style.zIndex = '1000';
+        document.body.appendChild(div);
+        tail.push({el: div, x: 0, y: 0});
+    }
+
+    document.addEventListener('mousemove', (e) => {
+        tail[0].x = e.pageX;
+        tail[0].y = e.pageY;
+    });
+
+    function animateTail() {
+        let prevX = tail[0].x;
+        let prevY = tail[0].y;
+
+        tail[0].el.style.left = prevX + 10 + 'px';
+        tail[0].el.style.top = prevY + 10 + 'px';
+
+        for(let i=1; i<tail.length; i++) {
+            let tempX = tail[i].x;
+            let tempY = tail[i].y;
+            
+            tail[i].x = tail[i].x + (prevX - tail[i].x) * 0.3;
+            tail[i].y = tail[i].y + (prevY - tail[i].y) * 0.3;
+
+            tail[i].el.style.left = tail[i].x + 10 + 'px';
+            tail[i].el.style.top = tail[i].y + 10 + 'px';
+
+            prevX = tempX;
+            prevY = tempY;
+        }
+        requestAnimationFrame(animateTail);
+    }
+    animateTail();
+
+    // SYMULATOR DŹWIĘKU (WIZUALNY)
+    function fartText() {
+        const sounds = ["PRRRRT!", "PFFFFT...", "BRAAAP!", "SPLOTCH!", "SQUEEEK"];
+        const el = document.getElementById('fart-output');
+        el.innerText = sounds[Math.floor(Math.random() * sounds.length)];
+        
+        // Trzęsienie ekranem
+        document.body.style.transform = "translate(2px, 2px)";
+        setTimeout(() => document.body.style.transform = "translate(-2px, -2px)", 50);
+        setTimeout(() => document.body.style.transform = "translate(0, 0)", 100);
+    }
+
+    // MATRIX POOP RAIN (CANVAS)
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const chars = '💩:@.,';
+    const drops = [];
+    const fontSize = 20;
+    const columns = canvas.width / fontSize;
+
+    for(let i = 0; i < columns; i++) {
+        drops[i] = 1;
+    }
+
+    function drawMatrix() {
+        ctx.fillStyle = 'rgba(62, 39, 35, 0.1)'; 
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        ctx.fillStyle = '#8d6e63'; 
+        ctx.font = fontSize + 'px monospace';
+
+        for(let i = 0; i < drops.length; i++) {
+            const text = chars.charAt(Math.floor(Math.random() * chars.length));
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+            if(drops[i] * fontSize > canvas.height && Math.random() > 0.975)
+                drops[i] = 0;
+            
+            drops[i]++;
+        }
+    }
+    setInterval(drawMatrix, 50);
+
+    // LICZNIK
+    setInterval(() => {
+        const counter = document.getElementById('counter');
+        let current = parseInt(counter.innerText);
+        if(Math.random() > 0.9) {
+            counter.innerText = String(current + 1).padStart(6, '0');
+        }
+    }, 2000);
+
+</script>
+
+</body>
+</html>
